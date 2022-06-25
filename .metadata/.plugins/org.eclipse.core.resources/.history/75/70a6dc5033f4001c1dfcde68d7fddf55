@@ -1,0 +1,14 @@
+package com.example.demo.entity;
+
+import javax.persistence.Table;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@Table(catalog = "marketDB",name = "Account")
+public class Account {
+	
+
+}
