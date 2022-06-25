@@ -1,8 +1,9 @@
 package com.example.demo.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Table(catalog = "marketDB" ,name = "ImportCoupon")
-
+@Entity
 public class ImportCoupon {
 	@Column(name = "ID")
 	@Id
