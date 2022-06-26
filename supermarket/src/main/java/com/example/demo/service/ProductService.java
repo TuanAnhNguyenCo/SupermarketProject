@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,20 +11,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.reponsitory.ProductReponsitory;
+import com.example.demo.entity.Product;
+import com.example.demo.reponsitory.IProductReponsitory;
+
 
 @Service
 public class ProductService implements IProductService{
 	@Value("${upload.path}")
 	private String imageFolder; 
 	@Autowired
-	private ProductReponsitory productReponsitory;
+	private IProductReponsitory productReponsitory;
 	
 	@Override
-	public boolean InsertProduct(String name,String origin,String description, MultipartFile image,
+	
+	// Thêm sản phẩm
+	public boolean AddProduct(String name,String origin,String description, MultipartFile image,
 			int num_of_products,String dvt,int sale, double prices)
 	{
-		boolean Success = true;
+		
 		
 		String fileName = image.getOriginalFilename();
 		String filePath =   imageFolder +"/"+ fileName;
@@ -36,19 +41,25 @@ public class ProductService implements IProductService{
 			random = generator.nextInt(10000000) + 1;
 			filePath = filePath.replace(".", random+".");
 		}
+
+        // Insert data
+		try {
+			productReponsitory.InsertProduct(name, origin, description, filePath, num_of_products, dvt, sale, prices);
+		} catch (Exception e) {
+			return false;
+		}
 		// Copy file
         try {
             FileCopyUtils.copy(image.getBytes(), new File(filePath));
         } catch (IOException e) {
             return false;
         }
-        // Insert data
-		try {
-			productReponsitory.InsertProduct(name, origin, description, filePath, num_of_products, dvt, sale, prices);
-		} catch (Exception e) {
-			Success = false;
-		}
-		return Success;
+		return true;
+	}
+	
+	// Lấy ra danh sách các sản phẩm
+	public List<Product> GetProductList(){
+		return productReponsitory.GetProductList();
 	}
 
 }

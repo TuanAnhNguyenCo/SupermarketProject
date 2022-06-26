@@ -1,12 +1,17 @@
 package com.example.demo.service;
 
-import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
-@Service
+import com.example.demo.entity.Product;
+
+
 public interface IProductService {
 	
-	boolean InsertProduct(String name,String origin,String description, MultipartFile image,
+	boolean AddProduct(String name,String origin,String description, MultipartFile image,
 			int num_of_products,String dvt,int sale, double prices
 			) ;
+	List<Product> GetProductList();
 }

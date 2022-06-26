@@ -7,25 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.service.IProductService;
 
+
 @RestController
-@RequestMapping(value = "api/v1/home")
+@RequestMapping(value = "api/v1/product")
 public class ProductController {
 	@Autowired
 	private IProductService iProductService;
 	
-	@GetMapping()
-	public ResponseEntity<?> Home()
-	{
-		return new ResponseEntity<>("Hello world",HttpStatus.OK);
-	}
-	@PostMapping()
-	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/insert")
 	public  ResponseEntity<?> InsertProduct(
 			@RequestParam String name,@RequestParam String origin,
 			@RequestParam String description,@RequestParam MultipartFile image,
@@ -33,7 +27,7 @@ public class ProductController {
 			@RequestParam int sale,@RequestParam double prices
 			)
 	{
-		boolean status = iProductService.InsertProduct(name, origin, description, image, 
+		boolean status = iProductService.AddProduct(name, origin, description, image, 
 														num_of_products, dvt, sale, prices);
         if(status==true)
         	return new ResponseEntity<>("Thêm dữ liệu thành công",HttpStatus.OK);
