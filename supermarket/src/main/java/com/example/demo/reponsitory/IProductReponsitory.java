@@ -17,6 +17,9 @@ public interface IProductReponsitory extends JpaRepository<Product, Integer>{
 
 		@Query(value = "select * from product",nativeQuery = true)
 		List<Product> GetProductList();
+
+		@Query(value = "select * from product where id = ?1",nativeQuery = true)
+		Product FindProductByID(Integer id);
 		
 		@Modifying
 		@Transactional

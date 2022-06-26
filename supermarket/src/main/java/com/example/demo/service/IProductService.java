@@ -14,4 +14,5 @@ public interface IProductService {
 			int num_of_products,String dvt,int sale, double prices
 			) ;
 	List<Product> GetProductList();
+	Product FindProductById(int id);
 }

@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.io.File;
+import java.io.IOError;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
@@ -60,6 +61,10 @@ public class ProductService implements IProductService{
 	// Lấy ra danh sách các sản phẩm
 	public List<Product> GetProductList(){
 		return productReponsitory.GetProductList();
+	}
+	public Product FindProductById(int id)
+	{
+		return productReponsitory.FindProductByID(id);
 	}
 
 }
