@@ -66,5 +66,9 @@ public class ProductService implements IProductService{
 	{
 		return productReponsitory.FindProductByID(id);
 	}
+	public List<Product> FindProductByName(String name)
+	{
+		return productReponsitory.FindProductByName(name);
+	}
 
 }
