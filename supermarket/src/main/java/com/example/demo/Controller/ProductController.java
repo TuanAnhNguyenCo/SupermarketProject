@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/v1/product")
+@CrossOrigin("*")
 public class ProductController {
 	@Autowired
 	private IProductService iProductService;
@@ -61,7 +62,7 @@ public class ProductController {
 	@PostMapping("/insert")
 	public  ResponseEntity<?> InsertProduct(
 			@RequestParam String name,@RequestParam String origin,
-			@RequestParam String description,@RequestParam MultipartFile image,
+			@RequestParam String description,@RequestParam List<MultipartFile> image,
 			@RequestParam int num_of_products,@RequestParam String dvt,
 			@RequestParam int sale,@RequestParam double prices
 			)
@@ -74,4 +75,17 @@ public class ProductController {
         	return new ResponseEntity<>("Thêm dữ liệu thất bại",HttpStatus.BAD_REQUEST);
 		}
 	}
+
+	// Delete product
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> DeleteProduct(@PathVariable("id") int id)
+	{
+		int status = iProductService.DeleteProduct(id);
+		if (status==0)
+			return new ResponseEntity<>("This product doesn't exist",HttpStatus.BAD_REQUEST);
+		else
+			return new ResponseEntity<>("This product was deleted",HttpStatus.OK);
+	}
+
 }

@@ -10,7 +10,7 @@ import com.example.demo.entity.Product;
 
 public interface IProductService {
 
-	boolean AddProduct(String name,String origin,String description, MultipartFile image,
+	boolean AddProduct(String name,String origin,String description, List<MultipartFile> image,
 			int num_of_products,String dvt,int sale, double prices
 			) ;
 	List<Product> GetProductList();
@@ -18,5 +18,7 @@ public interface IProductService {
 	Product FindProductById(int id);
 
 	List<Product> FindProductByName(String name);
+
+	int DeleteProduct(int id);
 
 }

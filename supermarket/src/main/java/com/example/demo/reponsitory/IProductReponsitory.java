@@ -34,6 +34,11 @@ public interface IProductReponsitory extends JpaRepository<Product, Integer>{
 				+ "values(?1,?2,?3,?4,?5,?6,?7,?8)",nativeQuery = true)
 		public void InsertProduct(String name,String origin,String description, String image,
 				Integer num_of_products,String dvt,Integer sale, Double prices) ;
+		// Delete product
+		@Modifying
+		@Transactional
+		@Query(value = "delete from product where id = ?1",nativeQuery = true)
+		public int DeleteProduct(int id);
 		
 
 	
