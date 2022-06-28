@@ -11,8 +11,12 @@ import com.example.demo.entity.Product;
 public interface IProductService {
 
 	boolean AddProduct(String name,String origin,String description, List<MultipartFile> image,
-			int num_of_products,String dvt,int sale, double prices
+			int num_of_products,String dvt,int sale, double prices, int category_id
 			) ;
+
+	boolean UpdateProduct(int id,String name,String origin,String description, List<MultipartFile> image,
+					   int num_of_products,String dvt,int sale, double prices, int category_id
+	) ;
 	List<Product> GetProductList();
 
 	Product FindProductById(int id);

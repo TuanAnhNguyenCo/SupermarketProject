@@ -30,10 +30,23 @@ public interface IProductReponsitory extends JpaRepository<Product, Integer>{
 		// Insert product
 		@Modifying
 		@Transactional
-		@Query(value  = "insert into product(name,origin,description,image,num_of_products,dvt,sale,prices) "
-				+ "values(?1,?2,?3,?4,?5,?6,?7,?8)",nativeQuery = true)
-		public void InsertProduct(String name,String origin,String description, String image,
-				Integer num_of_products,String dvt,Integer sale, Double prices) ;
+		@Query(value  = "update product " +
+				"set name = ?2,origin = ?3 ,description= ?4 ,image= ?5 ," +
+				"num_of_products= ?6 ,dvt= ?7 ,sale= ?8 ,prices= ?9 ,category_id= ?10 " +
+				"where id = ?1"
+				,nativeQuery = true)
+		public void UpdateProduct(Integer id,String name,String origin,String description, String image,
+				Integer num_of_products,String dvt,Integer sale, Double prices,Integer category_id) ;
+
+		// Update
+		@Modifying
+		@Transactional
+		@Query(value  = "insert into product(name,origin,description,image,num_of_products,dvt,sale,prices,category_id) "
+				+ "values(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10)",nativeQuery = true)
+		public void InsertProduct(String name, String origin, String description, String image,
+								  Integer num_of_products, String dvt, Integer sale, Double prices, Integer category_id) ;
+
+
 		// Delete product
 		@Modifying
 		@Transactional

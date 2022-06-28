@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.entity.Product;
+import com.example.demo.service.ICategoryService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.service.IProductService;
 
-import java.io.IOError;
-import java.io.IOException;
 import java.util.List;
 
 
@@ -23,6 +22,9 @@ import java.util.List;
 public class ProductController {
 	@Autowired
 	private IProductService iProductService;
+
+	@Autowired
+	private ICategoryService iCategoryService;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -43,7 +45,7 @@ public class ProductController {
 
 	// Find by name
 	@GetMapping()
-	public ResponseEntity<?> FindProductById(@RequestParam String name)
+	public ResponseEntity<?> FindProductByName(@RequestParam String name)
 	{
 		List<Product> product = iProductService.FindProductByName(name);
 		if(product!=null)
@@ -55,6 +57,39 @@ public class ProductController {
 		return new ResponseEntity<>("",HttpStatus.NO_CONTENT);
 	}
 
+	// Update
+	@GetMapping("/update/{id}")
+	public ResponseEntity<?> UpdateProduct(@PathVariable("id") int id)
+	{
+		Product product = iProductService.FindProductById(id);
+		if(product!=null)
+		{
+			return new ResponseEntity<>(product,HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("",HttpStatus.NO_CONTENT);
+
+	}
+	@PutMapping("/update")
+	public  ResponseEntity<?> UpdateProduct(@RequestParam int id,
+			@RequestParam String name,@RequestParam String origin,
+			@RequestParam String description,@RequestParam List<MultipartFile> image,
+			@RequestParam int num_of_products,@RequestParam String dvt,
+			@RequestParam int sale,@RequestParam double prices,
+			@RequestParam int category_id
+	)
+	{
+		boolean status = iProductService.UpdateProduct(id,name, origin, description, image,
+				num_of_products, dvt, sale, prices,category_id);
+		if(status==true)
+			return new ResponseEntity<>("Sưa dữ liệu thành công",HttpStatus.OK);
+		else {
+			return new ResponseEntity<>("Sửa dữ liệu thất bại",HttpStatus.BAD_REQUEST);
+		}
+	}
+
+
+
 
 
 
@@ -64,11 +99,12 @@ public class ProductController {
 			@RequestParam String name,@RequestParam String origin,
 			@RequestParam String description,@RequestParam List<MultipartFile> image,
 			@RequestParam int num_of_products,@RequestParam String dvt,
-			@RequestParam int sale,@RequestParam double prices
+			@RequestParam int sale,@RequestParam double prices,
+			@RequestParam int category_id
 			)
 	{
 		boolean status = iProductService.AddProduct(name, origin, description, image, 
-														num_of_products, dvt, sale, prices);
+														num_of_products, dvt, sale, prices,category_id);
         if(status==true)
         	return new ResponseEntity<>("Thêm dữ liệu thành công",HttpStatus.OK);
         else {
