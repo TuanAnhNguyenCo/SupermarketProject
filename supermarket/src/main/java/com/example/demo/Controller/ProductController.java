@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.entity.Product;
 import com.example.demo.service.ICategoryService;
+import org.apache.coyote.Request;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ProductController {
 	private ModelMapper modelMapper;
 
 	// Tìm kiếm theo id
-	@GetMapping("/get/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> FindProductById(@PathVariable("id") int id)
 	{
 		Product product = iProductService.FindProductById(id);
@@ -74,13 +75,13 @@ public class ProductController {
 	public  ResponseEntity<?> UpdateProduct(@RequestParam int id,
 			@RequestParam String name,@RequestParam String origin,
 			@RequestParam String description,@RequestParam List<MultipartFile> image,
-			@RequestParam int num_of_products,@RequestParam String dvt,
+			@RequestParam int num_Of_products,@RequestParam String dvt,
 			@RequestParam int sale,@RequestParam double prices,
 			@RequestParam int category_id
 	)
 	{
 		boolean status = iProductService.UpdateProduct(id,name, origin, description, image,
-				num_of_products, dvt, sale, prices,category_id);
+				num_Of_products, dvt, sale, prices,category_id);
 		if(status==true)
 			return new ResponseEntity<>("Sưa dữ liệu thành công",HttpStatus.OK);
 		else {

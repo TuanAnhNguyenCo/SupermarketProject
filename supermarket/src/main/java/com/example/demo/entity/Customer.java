@@ -40,7 +40,7 @@ public class Customer {
 	@Column(name = "CCCD",length = 20 ,nullable = false)
 	private String CCCD;
 	
-	@Column(name = "PhoneNumber",length = 15,nullable = false)
+	@Column(name = "phonenumber",length = 15,nullable = false)
 	private String PhoneNumber;
 	
 	

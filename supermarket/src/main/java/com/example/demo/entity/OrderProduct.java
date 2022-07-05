@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Table(catalog = "marketDB" ,name = "Order_Product")
+@Table(catalog = "marketDB" ,name = "order_product")
 @Entity
 public class OrderProduct {
 	@Column(name = "ID")
@@ -29,8 +29,7 @@ public class OrderProduct {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	
-	@Column(name = "OrderStatus",length = 40,nullable = false)
-	@ColumnDefault("chờ xác nhận")
+	@Column(name = "orderstatus",length = 40)
 	private String OrderStatus;
 	
 	@Column(name = "Created_at",insertable = false,nullable = false,updatable = false)
@@ -53,7 +52,7 @@ public class OrderProduct {
 	private double Original_total_price;
 	
 	@Column(name = "Address",length = 1000)
-	private double points;
+	private String address;
 	
 	@ManyToOne
 	@JoinColumn(name = "Customer_ID")
